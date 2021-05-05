@@ -34,7 +34,7 @@ const App: VFC = () => {
       .finally(() => setUsers(prevState => ({ ...prevState, loading: false })));
   }, []);
 
-  const getFilteredUsers = () =>
+  const getFilteredUsers = (): UserType[] =>
     users.data.filter(({ name }) =>
       name.toLowerCase().includes(search.toLowerCase())
     );
@@ -55,7 +55,7 @@ const App: VFC = () => {
         <h2>No users found!</h2>
       )}
       {!users.loading && users.error && (
-        <h2 className="error">{users.error}</h2>
+        <h2 className="error" aria-label="error">{users.error}</h2>
       )}
     </main>
   );
