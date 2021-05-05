@@ -1,5 +1,6 @@
 import React, { VFC, useState, useEffect } from 'react';
 import axios from 'axios';
+
 import { User, Search } from './components';
 
 export interface UserType {
@@ -21,6 +22,8 @@ const App: VFC = () => {
     data: []
   });
 
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     setUsers(prevState => ({ ...prevState, loading: true }));
     axios.get('https://jsonplaceholder.typicode.com/users')
@@ -30,19 +33,30 @@ const App: VFC = () => {
       .catch((err) => setUsers(prevState => ({ ...prevState, error: err.message })))
       .finally(() => setUsers(prevState => ({ ...prevState, loading: false })));
   }, []);
+
+  const getFilteredUsers = () =>
+    users.data.filter(({ name }) =>
+      name.toLowerCase().includes(search.toLowerCase())
+    );
+
   return (
     <main>
       <h1>Users list</h1>
-      <Search />
+      <Search value={search} setValue={setSearch} />
       {users.loading && !users.error && <h2>Loading...</h2>}
       {!users.loading && !users.error && (
         <ol>
-          {users.data.map((user) => (
+          {getFilteredUsers().map((user) => (
             <User key={user.id} user={user} />
           ))}
         </ol>
       )}
-      {!users.loading && users.error && <h2 className="error">{users.error}</h2>}
+      {!users.loading && !users.error && !getFilteredUsers().length && (
+        <h2>No users found!</h2>
+      )}
+      {!users.loading && users.error && (
+        <h2 className="error">{users.error}</h2>
+      )}
     </main>
   );
 };
