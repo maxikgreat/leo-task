@@ -6,13 +6,11 @@ interface SearchProps {
 }
 
 const Search: VFC<SearchProps> = ({ value, setValue }) => (
-    <div>
-      <input
-        placeholder="Search by user name..."
-        value={value}
-        onChange={({ target: { value } }) => setValue(value)}
-      />
-    </div>
+  <input
+    placeholder="Search by user name..."
+    value={value}
+    onChange={({ target: { value } }) => setValue(value)}
+  />
 );
 
 export default Search;

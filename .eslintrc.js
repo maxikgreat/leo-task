@@ -19,6 +19,20 @@ module.exports = {
     'react',
     '@typescript-eslint'
   ],
+  overrides: [
+    {
+      files: [
+        '**/*.test.ts',
+        '**/*.test.tsx'
+      ],
+      env: {
+        jest: true
+      },
+      rules: {
+        'react/react-in-jsx-scope': 'off'
+      }
+    }
+  ],
   rules: {
     semi: ['error', 'always'],
     'no-use-before-define': 'off',

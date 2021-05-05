@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search component should render correctly and match snapshot 1`] = `
+<input
+  placeholder="Search by user name..."
+  value="Example value"
+/>
+`;
